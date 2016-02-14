@@ -3,7 +3,8 @@
 Wallsplash
 
 Usage:
-  wallsplash ( [--category=<category>] | [--user=<user>] [<command>] ) [--query=<query>] 
+  wallsplash ( [--category=<category>] | [--user=<user>] ) [--query=<query>] 
+  wallsplash <command>
   wallsplash --version
   wallsplash -h | --help
 
