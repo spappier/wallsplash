@@ -3,8 +3,8 @@
 Wallsplash
 
 Usage:
-  wallsplash ( [--category=<category>] | [--user=<user>] ) [--query=<query>] 
-  wallsplash <command>
+  wallsplash ( [--category=<category>] | [--user=<user>] ) [--query=<query>]
+  wallsplash save
   wallsplash --version
   wallsplash -h | --help
 
@@ -18,27 +18,27 @@ Options:
 
 import subprocess
 import urlparse
+import shutil
+import time
 import os
 import re
 
 import requests
 import docopt
-import time
-from shutil import copyfile
 
 BASE_URL = 'https://source.unsplash.com'
 WALLPAPER_SIZE = '1280x800'
+WALLPAPER_FILE = 'current-wallpaper'
 IMAGES_FOLDER = '/tmp'
 IMAGES_FOLDER_SAVE = 'Pictures'
 CATEGORIES = ('buildings', 'food', 'nature', 'people', 'technology', 'objects')
-CURRENT_WALLPAPPIER_FILE_NAME = 'wallpappier-current'
 
 
 def download_wallpaper(url):
     r = requests.get(url, stream=True)
     r.raise_for_status()
     url_data = urlparse.urlparse(url)
-    image_path = os.path.join(IMAGES_FOLDER, CURRENT_WALLPAPPIER_FILE_NAME)
+    image_path = os.path.join(IMAGES_FOLDER, WALLPAPER_FILE)
     with open(image_path, 'wb') as f:
         for chunk in r:
             f.write(chunk)
@@ -75,18 +75,19 @@ def switch_wallpaper(category=None, user=None, query=None):
     fn = download_wallpaper(url)
     set_wallpaper(fn)
 
+
 def save_current():
-    image_path = os.path.join(IMAGES_FOLDER, CURRENT_WALLPAPPIER_FILE_NAME)
+    image_path = os.path.join(IMAGES_FOLDER, WALLPAPER_FILE)
     home = os.path.expanduser("~")
     current_millis = str(int(round(time.time() * 1000)))
-    image_save_destination = os.path.join(home, IMAGES_FOLDER_SAVE, CURRENT_WALLPAPPIER_FILE_NAME + "-" + current_millis)
-    copyfile(image_path, image_save_destination)
-    print('wallpappier saved at')
-    print(image_save_destination)
-    
+    image_save_destination = os.path.join(home, IMAGES_FOLDER_SAVE, WALLPAPER_FILE + "-" + current_millis)
+    shutil.copyfile(image_path, image_save_destination)
+    print('saved to: {}'.format(image_save_destination))
+
+
 def main():
-    args = docopt.docopt(__doc__, version='0.0.2', options_first=True)
-    if args['<command>'] == 'save':
+    args = docopt.docopt(__doc__, version='0.0.3')
+    if args.get('save'):
         save_current()
     else:
         switch_wallpaper(args.get('--category'), args.get('--user'),
