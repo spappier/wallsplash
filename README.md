@@ -3,14 +3,15 @@ gnome 3+ wallpaper switcher
 
 ### Installation
 ```
+git clone git@github.com:spappier/wallsplash.git
 sudo pip install -U requests docopt
-sudo cp wallsplash /usr/local/bin
+sudo cp wallsplash/wallsplash /usr/local/bin
 ```
 
 ### Usage
 ```
 Usage:
-  wallsplash ( [--category=<category>] | [--user=<user>] [<command>] ) [--query=<query>]
+  wallsplash ( [--category=<category>] | [--user=<user>] ) [--query=<query>]
   wallsplash save
   wallsplash --version
   wallsplash -h | --help
