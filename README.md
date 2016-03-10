@@ -11,6 +11,7 @@ sudo cp wallsplash /usr/local/bin
 ```
 Usage:
   wallsplash ( [--category=<category>] | [--user=<user>] [<command>] ) [--query=<query>]
+  wallsplash save
   wallsplash --version
   wallsplash -h | --help
 
@@ -20,12 +21,4 @@ Options:
   --query=<query>        Comma-separated search terms.
   --version              Show version.
   -h --help              Show this screen.
-```
-
-### Save current wallpaper to ~/Pictures directory
-
-```
-
-wallsplash save
-
 ```
