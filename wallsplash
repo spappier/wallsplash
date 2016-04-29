@@ -82,11 +82,12 @@ def save_current():
     current_millis = str(int(round(time.time() * 1000)))
     image_save_destination = os.path.join(home, IMAGES_FOLDER_SAVE, WALLPAPER_FILE + "-" + current_millis)
     shutil.copyfile(image_path, image_save_destination)
+    set_wallpaper(image_save_destination)
     print('saved to: {}'.format(image_save_destination))
 
 
 def main():
-    args = docopt.docopt(__doc__, version='0.1.0')
+    args = docopt.docopt(__doc__, version='0.1.1')
     if args.get('save'):
         save_current()
     else:
