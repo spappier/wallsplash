@@ -16,15 +16,20 @@ Options:
   -h --help              Show this screen.
 '''
 
+from __future__ import print_function
+
 import subprocess
-import urlparse
 import shutil
 import time
 import os
-import re
 
 import requests
 import docopt
+
+try:
+    import urlparse
+except ImportError:
+    import urllib.parse as urlparse
 
 BASE_URL = 'https://source.unsplash.com'
 WALLPAPER_SIZE = '1280x800'
@@ -46,7 +51,7 @@ def download_wallpaper(url):
 
 
 def get_wallpaper_url(resource, query=None):
-    params = { '': query } if query else None
+    params = {'': query} if query else None
     r = requests.get('{}/{}/{}'.format(BASE_URL, resource, WALLPAPER_SIZE),
                      params=params, allow_redirects=False)
     r.raise_for_status()
@@ -91,8 +96,11 @@ def main():
     if args.get('save'):
         save_current()
     else:
-        switch_wallpaper(args.get('--category'), args.get('--user'),
-                     args.get('--query'))
+        switch_wallpaper(
+            args.get('--category'),
+            args.get('--user'),
+            args.get('--query')
+        )
 
 if __name__ == '__main__':
     main()
