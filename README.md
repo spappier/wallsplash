@@ -4,8 +4,8 @@ gnome 3+ wallpaper switcher
 ### Installation
 ```
 git clone git@github.com:spappier/wallsplash.git
-sudo pip install -U requests docopt
-sudo cp wallsplash/wallsplash /usr/local/bin
+cd wallsplash
+sudo pip install .
 ```
 
 ### Usage
